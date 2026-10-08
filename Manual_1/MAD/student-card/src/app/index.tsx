@@ -1,36 +1,29 @@
-import { StyleSheet } from "react-native";
-import { ThemedText } from "@/components/themed-text";
+import ProfileCard from "@/components/profile-card";
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 
 export default function App() {
     return (
-        <SafeAreaView style={styles.container}>
-            <StatusBar style="auto" />
-            <ThemedText style={styles.title}>Hello, Mobile App Development</ThemedText>
-            <ThemedText style={styles.subtitle}>Semester: Fall 25-26</ThemedText>
-            <ThemedText style={styles.subtitle}>Tesing OnGoing By Mirza Anik</ThemedText>
-        </SafeAreaView>
-    );
-}
+        <ScrollView contentContainerStyle={styles.screen}>
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
+            <StatusBar style="dark"/>
+     
+            <ProfileCard name="Mirza Anik" studentId="23-53728-3" department="CSE" bio="Aimless Person. Don't know what to do"/>
+            <ProfileCard name="Sarar" studentId="23-53556-3" department="CSE" bio="Pro coder. Detarmined. Hard Headed"/>
+            
+
+            
+        </ScrollView>
+
+
+    );
+    }
+
+    const styles = StyleSheet.create({
+    screen: {
         backgroundColor: "#F0F4F8",
         alignItems: "center",
-        justifyContent: "center",
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: "bold",
-        color: "#0D1F4E",
-        margin: 5,
-    },
-    subtitle: {
-        fontSize: 18,
-        fontWeight: "bold",
-        color: "#0D1F4E",
-        margin: 5,
+        paddingTop: 60,
+        paddingBottom: 40,
     },
 });
