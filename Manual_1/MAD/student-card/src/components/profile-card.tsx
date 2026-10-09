@@ -17,9 +17,11 @@ export default function ProfileCard({ name, studentId, department, bio, skills }
         .join("");
 
         const [followed, setFollowed] = useState(false);
+        const [followerCount, setFollowerCount] = useState(0);
 
         const handelFollow = () => {
             setFollowed(!followed);
+            setFollowerCount(followed ? followerCount - 1 : followerCount + 1);
         };        
 
     return (
@@ -35,6 +37,17 @@ export default function ProfileCard({ name, studentId, department, bio, skills }
             <View style={styles.divider} />
 
             <Text style={styles.bio}>{bio}</Text>
+
+            <View style={styles.statsRow}>
+                <View style={styles.statBox}>
+                    <Text style={styles.statNumber}>{followerCount}</Text>
+                    <Text style={styles.statLabel}>Followers</Text>
+                </View>
+                <View style={styles.statBox}>
+                    <Text style={styles.statNumber}>0</Text>
+                    <Text style={styles.statLabel}>Following</Text>
+                </View>
+            </View>
 
             {skills && skills.length > 0 && (
                 <View style={styles.skillsContainer}>
@@ -69,6 +82,24 @@ const styles = StyleSheet.create({
         shadowRadius: 8,
         elevation: 4,
         marginBottom: 20,
+    },
+    statsRow: {
+        flexDirection: "row",
+        justifyContent: "center",
+        gap: 32,
+        marginTop: 12,
+    },
+    statBox: {
+        alignItems: "center",
+    },
+    statNumber: {
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "#0D1F4E",
+    },
+    statLabel: {
+        fontSize: 12,
+        color: "#64748B",
     },
     avatar: {
         width: 88,
