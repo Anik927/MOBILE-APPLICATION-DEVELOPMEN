@@ -2,6 +2,7 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import StudentItem from "@/components/student-item";
+<<<<<<< HEAD
 import SearchBar from "@/components/search-bar";
 import { Student, STUDENTS } from "@/data/students";
 
@@ -31,6 +32,16 @@ export default function HomeScreen(){
       }
       />
 
+=======
+import { Student, STUDENTS } from "@/data/students";
+
+export default function HomeScreen(){
+  return(
+    <SafeAreaView style={styles.container}>
+      {STUDENTS.map((student) => (
+        <StudentItem key={student.id} student={student} OnPress={() => {}} isSelected={false}/>
+      ))}
+>>>>>>> fc685ac580e26d39edb84d8107627f4f5123eda3
     </SafeAreaView>
   );
 }
@@ -38,6 +49,7 @@ export default function HomeScreen(){
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+<<<<<<< HEAD
         backgroundColor: "#F0F4F8",
     },
     titleBar: {
@@ -64,5 +76,7 @@ const styles = StyleSheet.create({
     emptyText: {
         fontSize: 14,
         color: "#94A3B8",
+=======
+>>>>>>> fc685ac580e26d39edb84d8107627f4f5123eda3
     },
 });
