@@ -10,6 +10,7 @@ interface FormFieldProps {
   placeholder?: string;
   multiline?: boolean;
   autoCapitalize?: "none" | "sentences" | "words" | "characters";
+  onBlur?: () => void;
 }
 
 export default function FormField({
@@ -20,6 +21,7 @@ export default function FormField({
   placeholder,
   multiline = false,
   autoCapitalize = "sentences",
+  onBlur,
 }: FormFieldProps) {
   return (
     <View style={styles.container}>
@@ -36,6 +38,7 @@ export default function FormField({
         placeholderTextColor="#94A3B8"
         multiline={multiline}
         autoCapitalize={autoCapitalize}
+        onBlur={onBlur}
       />
       {/* Only render the error line when there is an error */}
       {error ? <Text style={styles.errorText}>{error}</Text> : null}

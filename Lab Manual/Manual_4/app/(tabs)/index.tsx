@@ -1,16 +1,33 @@
-// NEW: import FlatList
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import StudentItem from "@/components/student-item";
-import { STUDENTS } from "@/data/students";
+import { Student, STUDENTS } from "@/data/students";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SearchBar from "@/components/search-bar";
 import { useState } from "react";
+// NEW: the form component
+import AddStudentForm from "@/components/add-student-form";
 
 export default function HomeScreen() {
   const [query, setQuery] = useState<string>("");
 
-  // NEW: filtered list, computed from query on every render
-  const filtered = STUDENTS.filter((s) => {
+  // NEW: local copy of the student list so we can add to it
+  const [students, setStudents] = useState<Student[]>(STUDENTS);
+  // NEW: whether we are showing the form or the directory
+  const [showForm, setShowForm] = useState(false);
+
+  // NEW: the form hands the new student back to this screen
+  const handleNewStudent = (newStudent: Student) => {
+    setStudents((prev) => [newStudent, ...prev]);
+    setShowForm(false);
+  };
+
+  // NEW: when showForm is true, show the form instead of the directory
+  if (showForm) {
+    return <AddStudentForm onSubmitSuccess={handleNewStudent} />;
+  }
+
+  // CHANGED: filter `students` (state) instead of STUDENTS
+  const filtered = students.filter((s) => {
     return (
       s.name.toLowerCase().includes(query.toLowerCase()) ||
       s.department.toLowerCase().includes(query.toLowerCase())
@@ -21,13 +38,15 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       <View style={styles.titleBar}>
         <Text style={styles.title}>Student Directory</Text>
-        {/* NEW: shows how many students match */}
         <Text style={styles.count}>{filtered.length} students</Text>
+        {/* NEW: button that opens the form */}
+        <Pressable onPress={() => setShowForm(true)}>
+          <Text style={{ color: "#FFFFFF", fontWeight: "700" }}>+ Add</Text>
+        </Pressable>
       </View>
 
       <SearchBar value={query} onChangeText={setQuery} />
 
-      {/* NEW: FlatList replaces STUDENTS.map(...) */}
       <FlatList
         data={filtered}
         keyExtractor={(item) => item.id}
